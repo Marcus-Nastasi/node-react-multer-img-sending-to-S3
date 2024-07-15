@@ -1,7 +1,7 @@
 import { CSSProperties, useState } from "react";
 
 function App() {
-   const [ image, setImage ] = useState();
+   const [ image, setImage ] = useState<File | null>();
    const [ status, setStatus ] = useState<string>();
 
    const handleFileChange = (e: any) => {
@@ -11,28 +11,30 @@ function App() {
    const handleUpload = async (e: any) => {
       e.preventDefault();
 
-      if (image) {
-        const formData = new FormData();
-        formData.append('file', image);
-  
-        try {
-          const response: Response = await fetch('http://localhost:3030/upload', {
+      if(!image) {
+         setStatus('Error: image not selected');
+         return
+      };
+
+      const formData = new FormData();
+      formData.append('file', image);
+
+      try {
+         const response: Response = await fetch('http://localhost:3030/upload', {
             method: 'POST',
-            body: formData,
-          });
-  
-          if (response.status == 202) {
+            body: formData
+         });
+
+         if (response.status === 202) {
             const data = await response.json();
             setStatus(`File uploaded successfully: ${data.file.originalname}`);
-          } else {
-            setStatus('Error uploading file');
-          }
-        } catch (error) {
-          console.error('Error uploading file:', error);
-          setStatus('Error uploading file');
-        }
+            return
+         }
+      } catch (error) {
+         console.error('Error uploading file:', error);
+         setStatus('Error uploading file');
       }
-    };
+   };
 
    return(
       <>
@@ -49,15 +51,18 @@ function App() {
                   accept="image/**" 
                />
 
-               <button onClick={handleUpload}>send</button>
+               <button 
+                  style={{ padding: '5px', margin: '20px' }} 
+                  onClick={handleUpload}
+               >
+                  send
+               </button>
 
             </form>
 
             <p>
                {status}
             </p>
-
-            <img src="https://library-app-images.s3.amazonaws.com/0dc614cb-abe6-48af-9467-907716cdc5e1-Captura+de+tela+de+2024-07-15+19-11-20.png" alt="" />
 
          </div>
       </>
