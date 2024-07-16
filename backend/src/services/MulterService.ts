@@ -1,4 +1,4 @@
-import multer from 'multer';
+import multer, { Multer } from 'multer';
 import multerS3 from 'multer-s3';
 import { randomUUID } from 'crypto';
 import { Request } from 'express';
@@ -13,7 +13,7 @@ export default class MulterService {
       this.m = multer;
    }
 
-   static upload: multer.Multer = multer({
+   static upload: Multer = multer({
       storage: multerS3({
          s3: S3Config.client(),
          bucket: process.env.aws_bucket_name as string,
