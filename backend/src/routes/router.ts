@@ -1,15 +1,14 @@
-import express from 'express';
+import { Router } from 'express';
 
-import { home } from '../controllers/home';
-import { send } from '../controllers/sendFile';
-
+import HomeController from '../controllers/HomeController';
+import FileLoaded from '../controllers/FileLoaded';
 import MulterService from '../services/MulterService';
 
-const router = express.Router();
+const router = Router();
 
-router.get('/', home);
+router.get('/', HomeController.index);
 
-router.post('/upload', MulterService.upload.single('file'), send);
+router.post('/upload', MulterService.upload.single('file'), FileLoaded.done);
 
 export default router;
 
