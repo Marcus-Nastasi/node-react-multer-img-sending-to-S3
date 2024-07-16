@@ -4,9 +4,7 @@ function App() {
    const [ image, setImage ] = useState<File | null>();
    const [ status, setStatus ] = useState<string>();
 
-   const handleFileChange = (e: any) => {
-      setImage(e.target.files[0]);
-   };
+   const handleFileChange = (e: any) => setImage(e.target.files[0]);
 
    const handleUpload = async (e: any) => {
       e.preventDefault();
@@ -25,11 +23,15 @@ function App() {
             body: formData
          });
 
-         if (response.status === 202) {
-            const data = await response.json();
-            setStatus(`File uploaded successfully: ${data.file.originalname}`);
+         if (response.status !== 202) {
+            setStatus('error uploading');
             return
          }
+
+         const data = await response.json();
+         setStatus(data.message);
+         
+         return
       } catch (error) {
          console.error('Error uploading file:', error);
          setStatus('Error uploading file');
@@ -52,19 +54,18 @@ function App() {
                />
 
                <button 
-                  style={{ padding: '5px', margin: '20px' }} 
+                  style={{ padding: '5px', marginTop: '50px' }} 
                   onClick={handleUpload}
                >
                   send
                </button>
 
             </form>
-
-            <p>
-               {status}
-            </p>
-
          </div>
+
+         <p>
+            {status}
+         </p>
       </>
    )
 }
