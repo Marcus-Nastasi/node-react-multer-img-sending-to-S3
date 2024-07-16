@@ -14,4 +14,17 @@ const s3 = new S3Client({
 export default s3;
 
 
+// replicando com classe
+class s3Class {
+
+   static client(): S3Client {
+      return new S3Client({
+         region: process.env.aws_region,
+         credentials: {
+            accessKeyId: process.env.aws_accessKeyId,
+            secretAccessKey: process.env.aws_secretKey
+         }
+      });
+   }
+}
 

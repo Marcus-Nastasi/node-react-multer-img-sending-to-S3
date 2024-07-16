@@ -1,11 +1,11 @@
 import multer from 'multer';
 import multerS3 from 'multer-s3';
-import s3 from '../config/s3Config';
 import { randomUUID } from 'crypto';
-
 import { Request } from 'express';
 
-export default class MulterClass {
+import s3 from '../config/s3Config';
+
+export default class MulterService {
 
    m: typeof multer;
 
