@@ -15,7 +15,12 @@ export default class MulterService {
             cb(null, { fieldName: file.fieldname });
          },
          key: (req: Request, file: Express.Multer.File, cb) => {
-            cb(null, randomUUID() + '-' + file.originalname);
+
+            const fileName: string = randomUUID() + '-' + file.originalname.replace(/[' ']/g, '-'); 
+
+            cb(null, fileName);
+
+            req.body.url = `https://${process.env.aws_bucket_name}.s3.amazonaws.com/${fileName}`; 
          }
       })
    });

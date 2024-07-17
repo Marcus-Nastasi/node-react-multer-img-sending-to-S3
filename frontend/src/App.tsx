@@ -72,16 +72,8 @@ function App() {
             status 
             
             ?  
-            
-            <p 
-            style={{ 
-               marginTop: "3rem", fontSize: "2rem", paddingLeft: "3rem", paddingRight: "3rem",
-               paddingTop: "0.3rem", paddingBottom: "0.3rem", backgroundColor: "rgba(0, 128, 0, 0.5)",
-               border: "2px solid rgba(0, 128, 0, 0.7)", borderRadius: "0.3rem",
-            }}
-            >
-               {status}
-            </p>
+
+            <img src={status} alt="" />
 
             :
 
