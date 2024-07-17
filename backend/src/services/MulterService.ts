@@ -7,12 +7,6 @@ import S3Config from '../config/S3Config';
 
 export default class MulterService {
 
-   m: typeof multer;
-
-   constructor() {
-      this.m = multer;
-   }
-
    static upload: Multer = multer({
       storage: multerS3({
          s3: S3Config.client(),
