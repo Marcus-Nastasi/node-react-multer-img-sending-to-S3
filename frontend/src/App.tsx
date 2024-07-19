@@ -68,17 +68,7 @@ function App() {
             </form>
          </div>
 
-         { 
-            status 
-            
-            ?  
-
-            <img src={status} alt="" />
-
-            :
-
-            ''
-         }
+         { status ? <img src={status} alt="" /> : '' }
          
       </main>
    )

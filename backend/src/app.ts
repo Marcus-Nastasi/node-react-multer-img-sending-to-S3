@@ -15,7 +15,7 @@ class App {
       this.routes();
    }
 
-   middlewares(): void {
+   private middlewares(): void {
       this.app.use(express.json());
 
       this.app.use(express.static(path.join(__dirname, '../../frontend/dist')));
@@ -25,11 +25,11 @@ class App {
       this.app.set('view engine', 'html');
    }
 
-   routes(): void {
+   private routes(): void {
       this.app.use(router);
    }
 
-   listen(): void {
+   public listen(): void {
       this.app.listen(3030, () => console.log('http://localhost:3030'));
    }
 }
